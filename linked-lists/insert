@@ -1,0 +1,131 @@
+/**
+ * Practicing various operations on a linked list in javascript.
+ */
+
+ /**
+  * Node Constructor
+  */
+ function Node(val) {
+     this.val = val;
+     this.next = null;
+ }
+
+ /**
+  * Singly Linked List Constructor
+  */
+function SinglyLinkedList() {
+    this.length = 0;
+    this.head = null;
+}
+
+/**
+ * Insert node at the beginning of a list
+ */
+SinglyLinkedList.prototype.insertAtFront = function(value) {
+    var node = new Node(value);
+    var currNode = this.head;
+
+    if (!currNode) { // if empty
+        this.head = node;
+        this.length++;
+        return;
+    }
+
+    // if not empty
+    node.next = currNode;
+    this.head = node;
+    this.length++;
+    return;
+}
+
+/**
+ * Insert at the end of the list
+ */
+SinglyLinkedList.prototype.insertAtEnd = function(value) {
+    var node = new Node(value);
+    var currNode = this.head;  // set pointer to start
+
+    if (!currNode) { // if empty
+        this.head = node;
+        this.length++;
+        return;
+    }
+
+    // traverse through list
+    while (currNode.next !== null) {
+        currNode = currNode.next;
+    }
+    
+    currNode.next = node; // insert at end
+    this.length++;
+    return;
+}
+
+/**
+ * Insert at end using tail pointer
+ */
+SinglyLinkedList.prototype.insertAtEndTail = function(value) {
+    var node = new Node(value);
+    var currNode = this.head;
+
+    if (!currNode) { // empty list
+       this.head = node;
+       this.tail = node; 
+       this.length++;
+       return;
+    }
+
+    this.tail.next = node;
+    this.tail = this.tail.next;
+    return;
+}
+
+SinglyLinkedList.prototype.print = function() {
+    var currNode = this.head;
+    while(currNode !== null) {
+        console.log(currNode.val);
+        currNode = currNode.next;
+    }
+}
+
+function main() {
+    // test insert at beginning
+    var list = new SinglyLinkedList();
+    list.insertAtFront(1);
+    list.print();
+    console.log('****');
+    list.insertAtFront(2);
+    list.print();
+    console.log('****');
+    list.insertAtFront(3);
+    list.print();
+
+    // test insert at end
+    var list = new SinglyLinkedList();
+    console.log('****');
+    list.insertAtEnd(1);
+    list.print();
+    console.log('****');
+    list.insertAtEnd(2);
+    list.print();
+    console.log('****');
+    list.insertAtEnd(3);
+    list.print();
+
+    // test insert at end w/ tail
+    var list = new SinglyLinkedList();
+    list.tail = null;
+    console.log('****');
+    list.insertAtEndTail(1);
+    list.print();
+    console.log('****');
+    list.insertAtEndTail(2);
+    list.print();
+    console.log('****');
+    list.insertAtEndTail(3);
+    list.print();
+    console.log('****');
+
+}
+
+main();
